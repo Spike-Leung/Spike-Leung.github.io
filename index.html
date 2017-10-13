@@ -198,7 +198,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -235,10 +235,142 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/13/组合继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spike Leung">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="On the load..">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/13/组合继承/" itemprop="url">组合继承</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-13T09:27:39+08:00">
+                2017-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>组合继承（combination inheritance）：将原型链和借用构造函数(constructor stealing)组合一起。</p>
+<p>原理：使用原型链实现对原型属性和方法的继承，使用借用构造函数实现对实力属性的继承</p>
+<p>构造步骤：  </p>
+<ol>
+<li>超类型构造函数定义   </li>
+<li>拓展超类型构造函数的原型对象（可以加方法、属性）  </li>
+<li>子类型构造函数，通过借用构造函数，完成构造函数的定义  </li>
+<li>子类型继承超类型 ==&gt; 子类型构造函数的原型对象  等于 超类型构造函数的实例   </li>
+<li>修改constructor的指向 SubType.portotype.constructor = SubType  </li>
+<li>扩展子类型构造函数的原型对象  </li>
+<li>通过子类型构造函数生成实例对象  </li>
+</ol>
+<p>Demo:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params">name</span>) </span>&#123; <span class="comment">// 超类型构造函数</span></div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.colors = [<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>];</div><div class="line">&#125; </div><div class="line"></div><div class="line">SuperType.prototype.sayName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="comment">// 为超类型构造函数的原型对象添加sayName方法</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params">name,age</span>)</span>&#123; <span class="comment">// 子类型构造函数</span></div><div class="line"></div><div class="line">    SuperType.call(<span class="keyword">this</span>,name); <span class="comment">// 构造函数借用 this 指向 SubType构造函数生成的实例 ，初始化 name</span></div><div class="line"></div><div class="line">    <span class="keyword">this</span>.age = age; <span class="comment">// 设置子类型的实例属性</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">SubType.prototype = <span class="keyword">new</span> SuperType(); <span class="comment">// 继承（让子类型的源性对象等于超类型构造函数的实例），继承了sayName方法,name colors属性（name 、 colors会被重写）</span></div><div class="line">SubType.prototype.constructor = SubType; <span class="comment">// 让constructor指回SubType（不然constructor指向超类型构造函数）</span></div><div class="line">SubType.prototype.sayAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">// 在子类型的原型对象上添加sayAge方法，扩展了原型链</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.age);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 于是，子类型构造函数的实例，通过原型链，获得了sayName 和 sayAge方法 ，并且拥有各自的name,colors,age属性，互不影响</span></div><div class="line"><span class="keyword">var</span> instance1 = <span class="keyword">new</span> SubType(<span class="string">"Spike"</span>,<span class="number">22</span>);</div><div class="line">instance1.colors.push(<span class="string">"black"</span>);</div><div class="line"><span class="built_in">console</span>.log(instance1.colors); <span class="comment">// ['red','blue','green','black']</span></div><div class="line">instance1.sayName(); <span class="comment">// "Spike"</span></div><div class="line">instance1.sayAge(); <span class="comment">// 22</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> instance2 = <span class="keyword">new</span> SubType(<span class="string">"Danne"</span>,<span class="number">39</span>);</div><div class="line"><span class="built_in">console</span>.log(instance2.colors);<span class="comment">// ['red','blue','green']</span></div><div class="line">instance2.sayName(); <span class="comment">// "Danne"</span></div><div class="line">instance2.sayAge(); <span class="comment">// 39</span></div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/02/hello/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Spike Liang">
+      <meta itemprop="name" content="Spike Leung">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -264,7 +396,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-02T00:43:12+08:00">
                 2017-09-02
@@ -358,7 +490,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/31/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Spike Liang">
+      <meta itemprop="name" content="Spike Leung">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
@@ -384,7 +516,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-31T18:19:12+08:00">
                 2017-08-31
@@ -504,7 +636,7 @@
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
-            <p class="site-author-name" itemprop="name">Spike Liang</p>
+            <p class="site-author-name" itemprop="name">Spike Leung</p>
             <p class="site-description motion-element" itemprop="description"></p>
         </div>
 
@@ -515,8 +647,8 @@
             
               <a href="/archives">
             
-                <span class="site-state-item-count">2</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
           
@@ -528,8 +660,8 @@
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">tags</span>
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">Tags</span>
               
             </div>
           
@@ -574,13 +706,13 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Spike Liang</span>
+  <span class="author" itemprop="copyrightHolder">Spike Leung</span>
 
   
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a></div>
 
   <span class="post-meta-divider">|</span>
 
