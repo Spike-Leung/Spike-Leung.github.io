@@ -235,6 +235,132 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/13/原型式继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Spike Leung">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="On the load..">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/13/原型式继承/" itemprop="url">原型式继承</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-13T10:33:27+08:00">
+                2017-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>)</span>&#123; <span class="comment">// o为一个要作为模板的对象</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;  <span class="comment">// 新建一个临时构造函数</span></div><div class="line">    F.prototype = o; <span class="comment">// 让构造函数的原型对象等于传入的对象</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F(); <span class="comment">//返回这个临时类型的一个实例</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>本质上，object()对传入其中的对象执行了一次浅复制。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> person = &#123;</div><div class="line">    name : <span class="string">"spike"</span>,</div><div class="line">    friends : [<span class="string">"Jack"</span>,<span class="string">"Lux"</span>,<span class="string">"Brandon"</span>]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> anotherPerson = object(person);</div><div class="line">anotherPerson.name = <span class="string">"Van"</span>;</div><div class="line">anotherPerson.friends.push = <span class="string">"Frank"</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> yetAnotherPerson = object(person);</div><div class="line">yetAnotherPerson.name = <span class="string">"Tom"</span>;</div><div class="line">yetAnotherPerson.friends.push(<span class="string">"Joy"</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(person.firends); <span class="comment">// ['Jack','Lux','Brandon','Frank','Joya']</span></div></pre></td></tr></table></figure></p>
+<p>实际上，anotherPerson和yetAnotherPerson相当于person的两个副本</p>
+<hr>
+<p>与object(o) 方法相似的 ，还有 Object.create()，如果只传1个参数（一个对象），那么object(o)和Object.create(o)的行为是相同的。<br>Object.create()还可以传入第二个参数，第二个参数和Object.defineProperties()方法的第二个参数格式相同，第二个参数定义的属性，会覆盖原型链上的属性。</p>
+<hr>
+<p>如果想根据某个已有的对象，构造一个新的对象，让这两个对象保持类似，那么可以考虑这种继承方式。<strong>一定要注意引用类型的值是被共享的。</strong></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/13/combination-inheritance/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -254,7 +380,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/10/13/combination-inheritance/" itemprop="url">combination inheritance</a></h1>
+                <a class="post-title-link" href="/2017/10/13/combination-inheritance/" itemprop="url">组合继承</a></h1>
         
 
         <div class="post-meta">
@@ -647,7 +773,7 @@
             
               <a href="/archives">
             
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
