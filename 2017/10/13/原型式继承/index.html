@@ -103,7 +103,7 @@
 <meta property="og:site_name" content="On the load..">
 <meta property="og:description" content="12345function object(o)&amp;#123; // o为一个要作为模板的对象    function F()&amp;#123;&amp;#125;  // 新建一个临时构造函数    F.prototype = o; // 让构造函数的原型对象等于传入的对象    return new F(); //返回这个临时类型的一个实例&amp;#125; 本质上，object()对传入其中的对象执行了一次浅复制。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T16:12:01.789Z">
+<meta property="og:updated_time" content="2017-10-14T16:29:19.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型式继承">
 <meta name="twitter:description" content="12345function object(o)&amp;#123; // o为一个要作为模板的对象    function F()&amp;#123;&amp;#125;  // 新建一个临时构造函数    F.prototype = o; // 让构造函数的原型对象等于传入的对象    return new F(); //返回这个临时类型的一个实例&amp;#125; 本质上，object()对传入其中的对象执行了一次浅复制。">
@@ -321,8 +321,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -370,7 +370,7 @@
 
       
         <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>)</span>&#123; <span class="comment">// o为一个要作为模板的对象</span></div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>)</span>&#123;&#125;  <span class="comment">// 新建一个临时构造函数</span></div><div class="line">    F.prototype = o; <span class="comment">// 让构造函数的原型对象等于传入的对象</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F(); <span class="comment">//返回这个临时类型的一个实例</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>本质上，object()对传入其中的对象执行了一次浅复制。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> person = &#123;</div><div class="line">    name : <span class="string">"spike"</span>,</div><div class="line">    friends : [<span class="string">"Jack"</span>,<span class="string">"Lux"</span>,<span class="string">"Brandon"</span>]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> anotherPerson = object(person);</div><div class="line">anotherPerson.name = <span class="string">"Van"</span>;</div><div class="line">anotherPerson.friends.push = <span class="string">"Frank"</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> yetAnotherPerson = object(person);</div><div class="line">yetAnotherPerson.name = <span class="string">"Tom"</span>;</div><div class="line">yetAnotherPerson.friends.push(<span class="string">"Joy"</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(person.firends); <span class="comment">// ['Jack','Lux','Brandon','Frank','Joya']</span></div></pre></td></tr></table></figure></p>
+<p>本质上，object()对传入其中的对象执行了一次浅复制。<br><a id="more"></a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> person = &#123;</div><div class="line">    name : <span class="string">"spike"</span>,</div><div class="line">    friends : [<span class="string">"Jack"</span>,<span class="string">"Lux"</span>,<span class="string">"Brandon"</span>]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> anotherPerson = object(person);</div><div class="line">anotherPerson.name = <span class="string">"Van"</span>;</div><div class="line">anotherPerson.friends.push = <span class="string">"Frank"</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> yetAnotherPerson = object(person);</div><div class="line">yetAnotherPerson.name = <span class="string">"Tom"</span>;</div><div class="line">yetAnotherPerson.friends.push(<span class="string">"Joy"</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(person.firends); <span class="comment">// ['Jack','Lux','Brandon','Frank','Joya']</span></div></pre></td></tr></table></figure></p>
 <p>实际上，anotherPerson和yetAnotherPerson相当于person的两个副本</p>
 <hr>
 <p>与object(o) 方法相似的 ，还有 Object.create()，如果只传1个参数（一个对象），那么object(o)和Object.create(o)的行为是相同的。<br>Object.create()还可以传入第二个参数，第二个参数和Object.defineProperties()方法的第二个参数格式相同，第二个参数定义的属性，会覆盖原型链上的属性。</p>
@@ -444,6 +444,8 @@
           
   <div class="comments" id="comments">
     
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTM0Ny83OTEw"></div>
+    
   </div>
 
 
@@ -496,7 +498,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -708,6 +710,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
